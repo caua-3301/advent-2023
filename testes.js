@@ -3,7 +3,7 @@ const { isMainThread } = require("worker_threads");
 
 let otherNumbs = 'onetwothreefourfivesixseveneightnine';
 
-let str = 'afdbzgnxhmconetwo'
+let str = 'dfghjone'
 
 const requestNumber = {
     one: 1,
@@ -38,12 +38,12 @@ const teste = () => {
                     control += other[subAuxOther];
                     subAux++;
                     subAuxOther++;
-                    console.log(subAux)
+                    
                 }
 
                 if (control.length >= 3){
                     let a = requestNumber.get(control)
-                    console.log(a)
+             
                 }
                 console.log(control)
                 control = '';

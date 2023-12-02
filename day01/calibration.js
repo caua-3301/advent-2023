@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const caminho = __dirname + '/calibre.txt';
+
 let sumAll = 0;
 let lastNum = 0;
 
@@ -13,6 +14,7 @@ fs.readFile(caminho, 'utf-8', (err, content) => {
 
     myFile.forEach(item => {
         let exec = 0;
+
         for (let char of item) {
             if (exec === 0 && char.charCodeAt(0) >= 48 && char.charCodeAt(0) <= 57) {
                 concat += char
