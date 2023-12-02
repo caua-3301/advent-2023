@@ -51,6 +51,7 @@ function charFun(str) {
 
     //Primeiro for percorre a string do txt
     for (let cont = 0; cont < strArrayada.length; cont++) {
+        //Os dois if's em sequnecia verificam se o char da vez é um numeros
         if (checkIsNum(strArrayada[cont]) && exec) {
             numbers[0] = parseInt(strArrayada[cont]);
             exec = false;
@@ -58,7 +59,7 @@ function charFun(str) {
         if (checkIsNum(strArrayada[cont])) {
             last = parseInt(strArrayada[cont]);
         }
-
+        //Realizando testes para descobrir o numero por extenso
         else {
             //O segundo for percorre a string com os números por extenso
             for (let aux = 0; aux < other.length; aux++) {
@@ -71,6 +72,7 @@ function charFun(str) {
 
                     while (strArrayada[subAux] === other[subAuxOth] && subAuxOth < 40) {
                         control += strArrayada[subAux];
+                        //Se um numero por extenso for encrotado ele encerra a execução
                         if (requestNumber.get(control) != undefined) {
                             subAuxOth = 41;
                         }
@@ -78,6 +80,7 @@ function charFun(str) {
                         subAuxOth += 1;
                     }
                 }
+                //Se o numero por extenso for maior que tres, ele armazena
                 if (control.length >= 3) {
                     let auxx = requestNumber.get(control);
                     if (Number.isInteger(auxx)) {
