@@ -98,7 +98,89 @@ function charFun(str) {
     }
     let preAnswer = cocateToNumber(numbers);
     return preAnswer;
-    
+
 }
 
-module.exports = { charFun, checkIsNum }
+
+// -------------------------------------------------------------------------------------------------
+const returnTheGame = line => {
+    let divGames = line.split(':'); //Dividindo a linha entre "Game x:" e o conteudo das rodadas [0] = game, [1] = list;
+    let array = [];
+    array = divGames[0].split(' ');
+    return parseInt(array[1])
+}
+
+const returnTheRodate = line => {
+    let divGames = line.split(':'); //Dividindo a linha entre "Game x:" e o conteudo das rodadas [0] = game, [1] = list;
+    return divGames[1].split(';');
+}
+
+const justColor = rodateGame => {
+    return rodateGame.split(',');
+}
+
+const valueColor = color => {
+    let numberAndColor = [];
+    numberAndColor.push(parseInt((color.slice(0, 3).trim()), 10));  //trim remove os espcos vazios
+    numberAndColor.push(color.slice(3, 10).trim());
+
+    return numberAndColor;
+}
+
+//Classe do meu objeto
+function creatSum() {
+    return {
+        red: 0,
+        blue: 0,
+        green: 0,
+        get: function (color, value) {
+            if (value > this[color]) {
+                this[color] = value;
+            }
+        }
+    };
+}
+
+const checkItemValue = objeto => {
+    if (objeto.red <= 12 && objeto.green <= 13 && objeto.blue <= 14) {
+        return true;
+    }
+    return false;
+}
+
+const checkIsValid = (array, idGame) => {
+    for (let c = 0; c < array.length; c++) {
+        let checkItem = creatSum();
+        justColor(array[c]).forEach(item => {
+            checkItem.get(valueColor(item)[1], valueColor(item)[0]);
+        })
+        console.log(checkItem)
+        if (checkItemValue(checkItem) != true) {
+            return false;
+        }
+    }
+    return true;
+}
+
+const calculateColors = arrayGame => {
+    let sumAll = 0;
+    // if (checkIsValid(arrayGame)) { //USAOD NA PARTE 01
+    //     return true;
+    // }
+    // valueSum.get(numberColor[1], parseInt(numberColor[0]));
+
+    let upperToLine = creatSum();
+    arrayGame.forEach(item => {
+        justColor(item).forEach(solo => {
+            upperToLine.get(valueColor(solo)[1], valueColor(solo)[0])
+        })
+        sumAll = (upperToLine.red * upperToLine.blue * upperToLine.green);
+    })
+    
+    return sumAll
+
+    // sumAll += checkIsValid(valueSum, numberColor[0]);
+    // return sumAll;
+}
+
+module.exports = { charFun, checkIsNum, returnTheRodate, calculateColors, returnTheGame }

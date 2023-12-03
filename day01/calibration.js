@@ -5,7 +5,6 @@ const caminho = __dirname + '/calibre.txt';
 
 let sumAll = 0;
 
-
 fs.readFile(caminho, 'utf-8', (err, content) => {
     const myFile = content.split('\n');
 
