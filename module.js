@@ -103,6 +103,8 @@ function charFun(str) {
 
 
 // -------------------------------------------------------------------------------------------------
+
+
 const returnTheGame = line => {
     let divGames = line.split(':'); //Dividindo a linha entre "Game x:" e o conteudo das rodadas [0] = game, [1] = list;
     let array = [];
@@ -176,11 +178,63 @@ const calculateColors = arrayGame => {
         })
         sumAll = (upperToLine.red * upperToLine.blue * upperToLine.green);
     })
-    
+
     return sumAll
 
     // sumAll += checkIsValid(valueSum, numberColor[0]);
     // return sumAll;
 }
 
-module.exports = { charFun, checkIsNum, returnTheRodate, calculateColors, returnTheGame }
+
+
+// -------------------------------------------------------------------------------------------------------------------
+
+const asciiSymbols = [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 47, 58, 59, 60, 61, 62, 63, 64, 91, 92, 93, 94, 95, 96];
+
+const checkIsSimbol = char => {
+    return asciiSymbols.includes(char) ? true : false;
+}
+
+const breakInChar = line => {
+    const chars = line.split('');
+    return chars;
+}
+
+const cuida = _ => {
+    console.log("Certo");
+}
+
+const takeAdjacent = (linesAux, idSimbolInLine) => {
+    let simbolsAux = [];
+    let teste = 0;
+    linesAux.forEach(line => { //Linhas inteiras
+        for (let c = (idSimbolInLine - 1); c <= idSimbolInLine+1; c++) {
+            console.log(`-- ${teste} = ${linesAux[teste]} --`);
+        }
+        teste++;
+    })
+}
+
+const analistArrownd = (data, line, idLine, idSimbolInLine) => {
+    let linesAux = [];
+    linesAux[0] = data[idLine - 1];
+    linesAux[1] = line;
+    linesAux[2] = data[idLine + 1];
+
+    takeAdjacent(linesAux, idSimbolInLine);
+}
+
+const checkLine = data => {
+    const lines = data.split('\n'); //--------------------------------------Conteudo completo
+    lines.forEach(line => { //----------------------------------------------Linha a linha
+        let numberLine = lines.indexOf(line); //----------------------------INDICE DA LINHA (NUMERO DELA -1)
+        breakInChar(line).forEach(char => { //------------------------------Caractere a caractere
+            if (checkIsSimbol(char.charCodeAt(0))) {
+                let numberCharinLine = line.indexOf(char); //---------------Numero do char na line
+                analistArrownd(data, line, numberLine, numberCharinLine)
+            }
+        })
+    })
+}
+
+module.exports = { charFun, checkIsNum, returnTheRodate, calculateColors, returnTheGame, checkIsSimbol, checkLine }     
